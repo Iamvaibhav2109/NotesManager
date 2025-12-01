@@ -13,7 +13,7 @@ class AddNoteBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetAddBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var vm: NotesViewModel
+    private lateinit var viewmodel: NotesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -23,7 +23,7 @@ class AddNoteBottomSheet : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
-        vm = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
+        viewmodel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
 
         binding.btnSave.setOnClickListener {
             val t = binding.etTitle.text.toString().trim()
@@ -31,7 +31,7 @@ class AddNoteBottomSheet : BottomSheetDialogFragment() {
             val tags = binding.etTags.text.toString().trim()
 
             if (t.isNotEmpty()) {
-                vm.addNote(t, b, tags)
+                viewmodel.addNote(t, b, tags)
                 dismiss()
             }
         }

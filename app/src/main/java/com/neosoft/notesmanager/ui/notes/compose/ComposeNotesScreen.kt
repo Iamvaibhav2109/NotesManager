@@ -26,7 +26,7 @@ fun ComposeNotesScreen(
             icon = { Icon(Icons.Default.Add, "") })
     }) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            SearchBar { /* implement local filter, or use viewModel */ }
+            SearchBar {  }
             TagRow(notes)
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(notes) { note ->
@@ -64,7 +64,7 @@ fun ComposeNotesScreen(
 }
 
 @Composable
-fun SearchBar(onQuery: (String) -> Unit) { /* simple placeholder */ TextField(
+fun SearchBar(onQuery: (String) -> Unit) { TextField(
     value = "",
     onValueChange = { onQuery(it) },
     placeholder = { Text("Search") },

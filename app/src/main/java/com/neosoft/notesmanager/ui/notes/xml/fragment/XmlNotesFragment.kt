@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class XmlNotesFragment : Fragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var vm: NotesViewModel
+    private lateinit var viewmodel: NotesViewModel
     private lateinit var adapter: NotesAdapter
 
     override fun onCreateView(
@@ -34,7 +34,7 @@ class XmlNotesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        vm = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
+        viewmodel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
 
         setupRecyclerView()
         setupFab()
@@ -42,7 +42,7 @@ class XmlNotesFragment : Fragment() {
         observeNotes()
     }
     private fun setupRecyclerView() {
-        adapter = NotesAdapter { note -> vm.delete(note) }
+        adapter = NotesAdapter { note -> viewmodel.delete(note) }
         binding.rvNotes.isNestedScrollingEnabled = false
         binding.rvNotes.layoutManager = LinearLayoutManager(requireContext())
         binding.rvNotes.adapter = adapter
@@ -79,7 +79,6 @@ class XmlNotesFragment : Fragment() {
         searchText.setPadding(0, 0, 0, 0)
         searchText.textSize = 15f
 
-        // Search listener
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
@@ -92,12 +91,8 @@ class XmlNotesFragment : Fragment() {
 
     private fun observeNotes() {
         lifecycleScope.launch {
-            vm.notes.collectLatest { notes ->
-
-                // Update list
+            viewmodel.notes.collectLatest { notes ->
                 adapter.setData(notes)
-
-                // Build tag chips dynamically
                 val tags = notes.flatMap { it.tags.split(",") }
                     .map { it.trim() }
                     .filter { it.isNotEmpty() }

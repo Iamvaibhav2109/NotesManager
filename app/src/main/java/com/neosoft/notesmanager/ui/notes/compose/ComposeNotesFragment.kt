@@ -13,21 +13,21 @@ import androidx.lifecycle.ViewModelProvider
 import com.neosoft.notesmanager.viewmodel.NotesViewModel
 
 class ComposeNotesFragment : Fragment() {
-    private lateinit var vm: NotesViewModel
+    private lateinit var viewmodel: NotesViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        vm = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
+        viewmodel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
         return ComposeView(requireContext()).apply {
             setContent {
                 MaterialTheme {
-                    val notes by vm.notes.collectAsState()
+                    val notes by viewmodel.notes.collectAsState()
                     ComposeNotesScreen(
                         notes = notes,
-                        onAdd = { t, b, tags -> vm.addNote(t, b, tags) },
-                        onDelete = { vm.delete(it) })
+                        onAdd = { t, b, tags -> viewmodel.addNote(t, b, tags) },
+                        onDelete = { viewmodel.delete(it) })
                 }
             }
         }

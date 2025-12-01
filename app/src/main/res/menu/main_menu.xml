@@ -4,8 +4,13 @@
 
     <item
         android:id="@+id/action_switch"
-        android:title=""
+        android:title="Compose"
         android:actionLayout="@layout/menu_switch"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_xml_item"
+        android:title="XML"
+        app:showAsAction="never" />
 
 </menu>
