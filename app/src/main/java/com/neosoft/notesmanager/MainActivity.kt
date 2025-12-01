@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFragment(compose: Boolean) {
-        val frag = if (compose) ComposeNotesFragment() else XmlNotesFragment()
+        val frag = if (compose) ComposeNotesFragment() else ComposeNotesFragment()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, frag)
